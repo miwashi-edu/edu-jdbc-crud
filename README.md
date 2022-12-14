@@ -39,15 +39,14 @@ implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.30'
 ```java
 package se.iths;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import org.junit.jupiter.api.*;
+
+import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AppTest {
     private static final String JDBC_CONNECTION = "jdbc:mysql://localhost:3306/iths";
     private static final String JDBC_USER = "iths";
