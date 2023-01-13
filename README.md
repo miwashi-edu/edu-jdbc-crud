@@ -1,6 +1,8 @@
 # edu-jdbc-crud
 
-> [Data Access Object](https://en.wikipedia.org/wiki/Data_access_object) (DAO) är ett mönster man ofta använder när man skapar persistensobjekt med jdbc.
+> Vi använder javas strategi mot null pointer exception, Optional. 
+
+> Optional har funnits sedan java 11
 
 ## Instruktioner
 
