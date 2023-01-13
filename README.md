@@ -6,6 +6,7 @@
 
 ```bash
 git clone https://github.com/miwashi-edu/edu-jdbc-crud.git
+cd edu-jdbc-crud
 git checkout level-1
 idea .
 ```
