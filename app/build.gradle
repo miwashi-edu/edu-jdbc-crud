@@ -19,4 +19,7 @@ application {
 tasks.named('test') {
     useJUnitPlatform()
     testLogging.showStandardStreams = true
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: ${descriptor}")
+    }
 }

@@ -6,10 +6,7 @@ import se.iths.persistency.interfaces.CRUDInterface;
 import se.iths.persistency.model.Album;
 import se.iths.persistency.model.Artist;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -59,12 +56,17 @@ public class ArtistDAO implements CRUDInterface<Artist> {
             close(stmt);
             close(con);
         }
+        AlbumDAO albumDAO = new AlbumDAO();
+        for(Artist artist : result){
+            Collection<Album> albums = albumDAO.findByParentId(artist.getId());
+            artist.add(albums);
+        }
         return result;
     }
 
     @Override
     public Artist findById(Long id) {
-        Artist album = null;
+         Artist artist = null;
         Connection con = null;
         PreparedStatement  stmt = null;
         ResultSet rs = null;
@@ -76,7 +78,7 @@ public class ArtistDAO implements CRUDInterface<Artist> {
             if(rs.next()){
                 Long artistId = rs.getLong(COL_ID);
                 String name = rs.getString(COL_NAME);
-                album = new Artist(artistId,  name);
+                artist = new Artist(artistId,  name);
             }
         } catch (SQLException e) {
             LOGGER.error("Failed to findByID", e);
@@ -86,21 +88,92 @@ public class ArtistDAO implements CRUDInterface<Artist> {
             close(stmt);
             close(con);
         }
-        return album;
-    }
+        if(artist==null) return artist;
 
-    @Override
-    public Artist create(Artist object) {
-        return new Artist(0L,"");
-    }
+        AlbumDAO albumDAO = new AlbumDAO();
+        Collection<Album> albums = albumDAO.findByParentId(artist.getId());
+        artist.add(albums);
 
-    @Override
-    public Artist update(Artist artist) {
         return artist;
     }
 
     @Override
-    public boolean delete(Artist object) {
-        return false;
+    public Artist create(Artist artist) {
+        Connection con = null;
+        PreparedStatement  stmt = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, artist.getName());
+            stmt.execute();
+            rs = stmt.getGeneratedKeys();
+            rs.next();
+            artist.setId(rs.getLong(1));
+        } catch (SQLException e) {
+            LOGGER.error("Failed to create", e);
+            throw new RuntimeException(e);
+        } finally {
+            close(rs);
+            close(stmt);
+            close(con);
+        }
+        AlbumDAO albumDAO = new AlbumDAO();
+        for(Album album : artist.getAlbums()){
+            albumDAO.create(album, artist.getId());
+        }
+
+        return artist;
+    }
+
+    @Override
+    public Artist update(Artist artist) {
+        Connection con = null;
+        PreparedStatement  stmt = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement(SQL_UPDATE);
+            stmt.setString(1, artist.getName());
+            stmt.setLong(2, artist.getId());
+            stmt.execute();
+        } catch (SQLException e) {
+            LOGGER.error("Failed to update", e);
+            throw new RuntimeException(e);
+        } finally {
+            close(rs);
+            close(stmt);
+            close(con);
+        }
+        AlbumDAO albumDAO = new AlbumDAO();
+        for(Album album : artist.getAlbums()){
+            if(album.getId()!=null){
+                albumDAO.update(album);
+            }else {
+                albumDAO.create(album, artist.getId());
+            }
+        }
+        return artist;
+    }
+
+    @Override
+    public boolean delete(Artist artist) {
+        boolean result = false;
+        Connection con = null;
+        PreparedStatement  stmt = null;
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement(SQL_DELETE);
+            stmt.setLong(1, artist.getId());
+            stmt.execute();
+            result = true;
+        } catch (SQLException e) {
+            LOGGER.error("Failed to delete", e);
+            throw new RuntimeException(e);
+        } finally {
+            close(stmt);
+            close(con);
+        }
+        return result;
     }
 }

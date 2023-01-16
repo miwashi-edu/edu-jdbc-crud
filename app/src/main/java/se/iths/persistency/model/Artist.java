@@ -34,12 +34,18 @@ public class Artist {
     }
 
     public Collection<Album> getAlbums() {
+        albums = albums==null?new ArrayList<Album>():albums;
         return albums;
     }
 
     public void add(Album album) {
         albums = albums==null?new ArrayList<Album>():albums;
         albums.add(album);
+    }
+
+    public void add(Collection<Album> albums) {
+        this.albums = this.albums==null?new ArrayList<Album>():this.albums;
+        this.albums.addAll(albums);
     }
 
     public void remove(Album album) {
