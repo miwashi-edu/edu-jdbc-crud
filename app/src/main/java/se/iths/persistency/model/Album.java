@@ -28,4 +28,9 @@ public class Album {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String toString(){
+        StringBuffer buf = new StringBuffer(getId() + " - " + getTitle());
+        return buf.toString();
+    }
 }

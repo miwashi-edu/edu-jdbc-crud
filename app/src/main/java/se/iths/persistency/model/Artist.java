@@ -52,4 +52,18 @@ public class Artist {
         if (albums==null) return;
         albums.remove(album);
     }
+
+    public String toString(){
+        StringBuffer buf = new StringBuffer(getId() + " - " + getName());
+        buf.append("\n");
+        buf.append("\tNumber of albums: ");
+        buf.append(getAlbums().size());
+        buf.append("\n");
+        for(Album album : getAlbums()){
+            buf.append("\t");
+            buf.append(album);
+            buf.append("\n");
+        }
+        return buf.toString();
+    }
 }
