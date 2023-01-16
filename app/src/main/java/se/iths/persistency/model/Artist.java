@@ -8,6 +8,10 @@ public class Artist {
     String name;
     Collection<Album> albums;
 
+    public Artist(String name) {
+        this.name = name;
+    }
+
     public Artist(Long id, String name) {
         this.id = id;
         this.name = name;
