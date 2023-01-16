@@ -1,0 +1,22 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    implementation 'ch.qos.logback:logback-classic:1.2.6'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.30'
+}
+
+application {
+    mainClass = 'se.iths.App'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    testLogging.showStandardStreams = true
+}

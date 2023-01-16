@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="se.iths.persistency.dao.AlbumDAOTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-01-16T02:36:37" hostname="301308.local" time="0.327">
+  <properties/>
+  <testcase name="shouldNotFindAlbumByFaultyId()" classname="se.iths.persistency.dao.AlbumDAOTest" time="0.179"/>
+  <testcase name="shouldFindAllAlbumsForArtis()" classname="se.iths.persistency.dao.AlbumDAOTest" time="0.022"/>
+  <testcase name="shouldFindAlbumById()" classname="se.iths.persistency.dao.AlbumDAOTest" time="0.033"/>
+  <testcase name="shouldDeleteAlbum()" classname="se.iths.persistency.dao.AlbumDAOTest" time="0.036"/>
+  <testcase name="shouldUpdateAlbum()" classname="se.iths.persistency.dao.AlbumDAOTest" time="0.025"/>
+  <testcase name="shouldCreateAlbum()" classname="se.iths.persistency.dao.AlbumDAOTest" time="0.012"/>
+  <testcase name="shouldFindAllAlbums()" classname="se.iths.persistency.dao.AlbumDAOTest" time="0.014"/>
+  <testcase name="shouldNotCreateAlbumWithoutArtist()" classname="se.iths.persistency.dao.AlbumDAOTest" time="0.001"/>
+  <system-out><![CDATA[03:36:37.657 [Test worker] INFO se.iths.persistency.dao.AlbumDAO - Prepared statement "SELECT AlbumId, Title FROM Album WHERE AlbumId = ?" created!
+03:36:37.661 [Test worker] INFO se.iths.persistency.dao.AlbumDAO - Prepared statement "SELECT AlbumId, Title FROM Album WHERE ARTISTID = ?" created!
+03:36:37.661 [Test worker] INFO se.iths.persistency.dao.AlbumDAO - Prepared statement "SELECT AlbumId, Title FROM Album" created!
+03:36:37.661 [Test worker] INFO se.iths.persistency.dao.AlbumDAO - Prepared statement "INSERT INTO Album (Title, ArtistId) VALUES(?, ?)" created!
+03:36:37.661 [Test worker] INFO se.iths.persistency.dao.AlbumDAO - Prepared statement "DELETE FROM Album WHERE AlbumId = ?" created!
+03:36:37.661 [Test worker] INFO se.iths.persistency.dao.AlbumDAO - Prepared statement "UPDATE Album SET Title = ? WHERE AlbumId = ?" created!
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
