@@ -4,6 +4,15 @@
 
 > I exemplet använder vi oss av testgrenen i ett projekt för att visa CRUD via jdbc för att undvika att komplicera med undantagshantering.
 
+## Förberedelser
+
+```bash
+docker start iths-mysql
+docker exec -i iths-mysql myql -uroot -proot < Chinook_MySql_AutoIncrementPKs.sql
+docker exec -i iths-mysql mysql -uroot -proot  <<< "GRANT ALL ON Chinook.* to 'iths'@'%';"
+```
+
+
 ## Instruktioner
 
 ```bash
