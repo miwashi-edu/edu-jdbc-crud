@@ -8,7 +8,7 @@
 
 ```bash
 docker start iths-mysql
-docker exec -i iths-mysql myql -uroot -proot < Chinook_MySql_AutoIncrementPKs.sql
+docker exec -i iths-mysql mysql -uroot -proot < Chinook_MySql_AutoIncrementPKs.sql
 docker exec -i iths-mysql mysql -uroot -proot  <<< "GRANT ALL ON Chinook.* to 'iths'@'%';"
 ```
 
